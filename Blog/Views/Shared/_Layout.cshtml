@@ -1,0 +1,37 @@
+﻿
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="~/Content/css/reset.css">
+    <link rel="stylesheet" href="~/Content/css/style.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="left-column">
+            <div class="wrap-avatar">
+                <img src="~/Content/images/avatar.png" alt="" />
+                <h2>John Doe</h2>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="#">Latest Post</a></li>
+                    <li><a href="#">Archive</a></li>
+                    <li><a href="#">About Me</a></li>
+                </ul>
+            </div>
+            <div class="search-form">
+                <input type="text" />
+                <button></button>
+            </div>
+            @Html.Action("Recent", "Article")
+            @Html.Action("Recent","Comment")
+        </div>
+        <div class="right-column">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>
