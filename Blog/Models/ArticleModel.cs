@@ -11,21 +11,12 @@ namespace Blog.Models
     public class ArticleModel
     {
         private readonly PostModel post;
-        private readonly ICollection<string> comments;
+        private readonly List<CommentItemModel> comments;
 
-        public ArticleModel()
-        {
-            post = new PostModel(
-                "Тут заголовок поста",
-                "<p>Нейкий пост.................</p>",
-                DateTime.Now);
-            comments = CommentsRepository.Comments;
-        }
-
-        public ArticleModel(PostModel post, ICollection<string> comments)
+        public ArticleModel(PostModel post, List<CommentItemModel> comment)
         {
             this.post = post;
-            this.comments = comments;
+            this.comments = comment;
         }
 
         public PostModel Post
@@ -36,14 +27,13 @@ namespace Blog.Models
             }
         }
 
-        public ICollection<string> Comments
+        public List<CommentItemModel> Comments
         {
             get
             {
                 return comments;
             }
         }
-
         public AddCommentModel NewComment { get; set; }
     }
 }

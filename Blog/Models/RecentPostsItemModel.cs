@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
 namespace Blog.Models
 {
-    public class RecentDataItemModel
+    public class RecentPostsItemModel
     {
-        public RecentDataItemModel()
+        public RecentPostsItemModel(string title, DateTime date)
         {
-            Text = "SOME recent data TEXT";
-            URL = "http://google.com";
-            Date = DateTime.Now.AddDays(-1);
+            this.Text = title;
+            this.Date = date;
         }
         public string Text { get; set;}
         public string URL { get; set; }

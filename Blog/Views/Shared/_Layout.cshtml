@@ -22,12 +22,8 @@
                     <li><a href="#">About Me</a></li>
                 </ul>
             </div>
-            <div class="search-form">
-                <input type="text" />
-                <button></button>
-            </div>
             @Html.Action("Recent", "Article")
-            @Html.Action("Recent","Comment")
+            @Html.Action("Recent","Comment") 
         </div>
         <div class="right-column">
             @RenderBody()

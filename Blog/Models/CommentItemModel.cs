@@ -7,15 +7,30 @@ namespace Blog.Models
 {
     public class CommentItemModel
     {
-        public CommentItemModel()
-        {
-            Username = "Vlad";
-            Body = "Comment";
-            Date = DateTime.Now;
-        }
-        public string Username { get; set; }
-        public string Body { get; set; }
-        public DateTime Date { get; set; }
+        private readonly string body;
+        private readonly DateTime dateCreated;
 
+        public CommentItemModel( string body, DateTime dateCreated)
+        {
+           
+            this.body = body;
+            this.dateCreated = dateCreated;
+        }
+        
+        public string Body
+        {
+            get
+            {
+                return body;
+            }
+        }
+
+        public DateTime DateCreated
+        {
+            get
+            {
+                return dateCreated;
+            }
+        }
     }
 }

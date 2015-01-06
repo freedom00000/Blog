@@ -139,8 +139,10 @@
     <Compile Include="Models\LikeModel.cs" />
     <Compile Include="Models\LoyoutModel.cs" />
     <Compile Include="Models\PostModel.cs" />
-    <Compile Include="Models\RecentDataItemModel.cs" />
-    <Compile Include="Models\RecentDataModel.cs" />
+    <Compile Include="Models\RecentCommentsItemModel.cs" />
+    <Compile Include="Models\RecentCommentsModel.cs" />
+    <Compile Include="Models\RecentPostsItemModel.cs" />
+    <Compile Include="Models\RecentPostsModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CommentsRepository.cs" />

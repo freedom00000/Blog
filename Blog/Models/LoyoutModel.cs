@@ -10,10 +10,10 @@ namespace Blog.Models
 
         public LoyoutModel()
         {
-            RecentComment = new RecentDataModel();
-            RecentPosts = new RecentDataModel();
+            RecentComment = new RecentPostsModel();
+            RecentPosts = new RecentPostsModel();
         }
-        public RecentDataModel RecentPosts { get; set; }
-        public RecentDataModel RecentComment { get; set; }
+        public RecentPostsModel RecentPosts { get; set; }
+        public RecentPostsModel RecentComment { get; set; }
     }
 }

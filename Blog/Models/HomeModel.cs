@@ -9,7 +9,7 @@ namespace Blog.Models
     {
         public HomeModel()
         {
-            Article = new ArticleModel();
+           // Article = new ArticleModel();
 
         }
         public ArticleModel Article { get; set; }

@@ -6,8 +6,7 @@
     <form action="@Url.Action("Index", "Home")" method="post" enctype="multipart/form-data">
         @Html.TextAreaFor(m => m.Comment, new { placeholder = "Your comment", @class = "txt-area" })
         <div class="wrap-btn">
-            <button class="btn-cancel">Cancel</button>
-            <button class="btn-save">Save changes</button>
+            <button class="btn-save">Send</button>
             <p>Lorem ipsum dolor sit amet, <a href="#">adipiscing</a></p>
         </div>
     </form>

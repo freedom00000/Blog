@@ -15,60 +15,63 @@ namespace Blog.Repository
         public ArticleModel GetArticleModel(string title)
         {
             PostModel postModel = null;
-            Collection<string> comments = null;
-            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["mssql"].ConnectionString))
+            List<CommentItemModel> comments = new List<CommentItemModel>();
+            using(var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["mssql"].ConnectionString))
             {
                 connection.Open();
-                using (var command = new SqlCommand("SELECT * FROM Post WHERE title = @title"))
+                using (var command = new SqlCommand("SELECT * FROM POST WHERE Title = @title"))
                 {
                     command.Connection = connection;
                     command.Parameters.Add(new SqlParameter("title", title));
-
-                    using (var dataReader = command.ExecuteReader())
+                    using (var reader = command.ExecuteReader())
                     {
-                        if (dataReader.Read())
+                        if (reader.Read())
                         {
                             postModel = new PostModel(
-                                dataReader["Title"].ToString(),
-                                dataReader["Body"].ToString(),
-                                DateTime.Parse(dataReader["DateCreated"].ToString())
+                                reader["Title"].ToString(),
+                                reader["Body"].ToString(),
+                                DateTime.Parse(reader["DateCreated"].ToString())
                                 );
                         }
                     }
                 }
-
                 using (var command = new SqlCommand("SELECT Comment.* FROM Comment INNER JOIN Post ON Comment.PostID = Post.PostID WHERE Post.Title = @title"))
                 {
                     command.Connection = connection;
                     command.Parameters.Add(new SqlParameter("title", title));
-                    comments = new Collection<string>();
                     using (var dataReader = command.ExecuteReader())
                     {
                         while (dataReader.Read())
                         {
-                            comments.Add(dataReader["Body"].ToString());
+                                  comments.Add( new CommentItemModel(
+                                  dataReader["Body"].ToString(),
+                                  DateTime.Parse(dataReader["DateCreated"].ToString())
+                                  ));
                         }
                     }
                 }
-
-                return new ArticleModel(postModel, comments);
             }
+
+            return new ArticleModel(postModel, comments);
         }
 
-        public void AddComment(string title, string comment)
+
+        public void AddComment(string title, string comment, string date)
         {
-            var sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["mssql"].ConnectionString);
-            var sqlCommand = new SqlCommand(@"INSERT INTO Comment
-	            SELECT PostID, @comment AS MyPost 
+          using(var sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["mssql"].ConnectionString))
+            {
+                using(var sqlCommand = new SqlCommand(@"INSERT INTO Comment
+	            SELECT PostID, @comment,"+ "'"+date+"'" + @"  AS MyPost 
                 FROM Post 
-                WHERE Title = @title");
-            sqlCommand.Parameters.Add(new SqlParameter("comment", comment));
-            sqlCommand.Parameters.Add(new SqlParameter("title", title));
-            sqlCommand.Connection = sqlConnection;
-            sqlConnection.Open();
-            sqlCommand.ExecuteNonQuery();
-            sqlCommand.Dispose();
-            sqlConnection.Dispose();
+                WHERE Title = @title"))
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("comment", comment));
+                    sqlCommand.Parameters.Add(new SqlParameter("title", title));
+                    sqlCommand.Connection = sqlConnection;
+                    sqlConnection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

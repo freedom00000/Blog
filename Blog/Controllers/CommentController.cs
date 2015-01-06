@@ -15,7 +15,7 @@ namespace Blog.Controllers
 
          public ActionResult Recent()
         {
-            var model = new RecentDataModel();
+            var model = new RecentCommentsModel();
             return View(model);
         }
 

@@ -1,41 +1,33 @@
 ﻿@using Blog.Models
-@model Blog.Models.ArticleModel
+@model ArticleModel
 <div class="wrap-article">
     @if (Model.Post != null)
     {
         <h2>@Model.Post.Title</h2>
-        <p class="date"><span>@Model.Post.DateCreated.Date.ToString("D")</span><span>@Model.Post.DateCreated.ToString("hh:mm")</span></p>
+        <p class="date"><span>@Model.Post.DateCreated.Date.ToString("D")</span><span>@Model.Post.DateCreated.ToString("HH:mm")</span></p>
         <div class="text-block">
-            @Html.Raw(Model.Post.Body)
+            <p>@Model.Post.Body</p>  
         </div>
     }
 </div>
-@*<div class="wrap-soc-list">
-                <ul>
-                    @foreach (var item in Model.Likes)
-                    {
-                        <li><a href="#"><img src="~/Content/images/fc-ico.png" alt="" /><span>@item.LikesCount</span></a></li>
-                    }
-                  </ul>
-            </div> *@
 <div class="wrap-comments">
     <h2>Comments</h2>
     <ul class="list-comment">
         @if (Model.Comments != null)
         {
-            foreach (string item in Model.Comments)
-            {
+            for (int i = 0; Model.Comments.Count > i;i++ )
+                {
                 <li>
                     <div class="avatar"><img src="~/Content/images/avatar-comment.png" alt="" /></div>
                     <div class="comment-text">
                         <a href="#"></a>
-                        <p class="date"><span>@DateTime.Now.Date.ToString("D")</span><span>@DateTime.Now.Date.ToString("HH:mm")</span></p>
-                        <p>@item</p>
+                        <p class="date"><span>@Model.Comments[i].DateCreated.Date.ToString("D")</span><span>@Model.Comments[i].DateCreated.ToString("HH:mm")</span></p>
+                        <p>@Model.Comments[i].Body</p>
                     </div>
                 </li>
-            }
+                }
         }
     </ul>
-    @Html.Partial("AddComments", new AddCommentModel() { User = new UserModel() }, new ViewDataDictionary())
+    @Html.Partial("AddComments", new AddCommentModel() { Date = DateTime.Now }, new ViewDataDictionary())
 </div>
 
