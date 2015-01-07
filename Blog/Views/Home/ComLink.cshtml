@@ -6,21 +6,21 @@
         <h2>@Model.Post.Title</h2>
         <p class="date"><span>@Model.Post.DateCreated.Date.ToString("D")</span><span>@Model.Post.DateCreated.ToString("HH:mm")</span></p>
         <div class="text-block">
-            <p>@Model.Post.Body</p>  
+            <p>@Model.Post.Body</p>
         </div>
     }
 </div>
 <div class="wrap-comments">
-    <h2>Комментарии</h2>
+    <h2>Коментарии</h2>
     <ul class="list-comment">
         @if (Model.Comments != null)
         {
-            for (int i = 0; Model.Comments.Count > i;i++ )
-                {
+            for (int i = 0; Model.Comments.Count > i; i++)
+            {
                 <li>
                     <div class="avatar"><img src="~/Content/images/avatar-comment.png" alt="" /></div>
-                    <div class="comment-text"> 
-                        <a href="#">Некто</a>
+                    <div class="comment-text">
+                        <a href="#">Гость</a>
                         <p class="date"><span>@Model.Comments[i].DateCreated.Date.ToString("D")</span><span>@Model.Comments[i].DateCreated.ToString("HH:mm")</span></p>
                         <p>@Model.Comments[i].Body</p>
                     </div>
@@ -33,10 +33,9 @@
                         </form>
                     }
                 </li>
-                }
+            }
         }
     </ul>
     @Html.Partial("AddComments", new AddCommentModel() { title = Model.Post.Title })
-    
-</div>
 
+</div>

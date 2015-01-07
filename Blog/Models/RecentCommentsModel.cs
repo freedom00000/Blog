@@ -28,8 +28,9 @@ namespace Blog.Models
                             if(reader.Read())
                             Items.Add(new RecentCommentsItemModel(
                                 reader["Body"].ToString(),
-                                DateTime.Parse(reader["DateCreated"].ToString())
-                                ));
+                                DateTime.Parse(reader["DateCreated"].ToString()), 
+                                reader["CommentID"].ToString())
+                                );
                         }
                     }
                 }

@@ -1,9 +1,9 @@
-﻿
+﻿@using Blog.Models
 <!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Блог Хорошего Человека</title>
     <link rel="stylesheet" href="~/Content/css/reset.css">
     <link rel="stylesheet" href="~/Content/css/style.css">
 </head>
@@ -22,6 +22,13 @@
                         <li>@Html.ActionLink("Добавить статью", "AddPost", "Home")</li>
                         <li>@Html.ActionLink("Удалить статью", "Recent", "Article")</li>
                         <li>@Html.ActionLink("Читать другие статьи", "Recent", "Article", new { i = 1 }, null)</li>
+
+                        /* <li><a id="readMoreLink" href="#">Читать другие статьи</a></li>
+    <li id="recentDiv" hidden="hidden">
+        <div>
+            @Html.Partial("../Article/Recent", new RecentPostsModel(1), null)
+        </div>
+    </li>*/
                     }
                     else
                     {
@@ -30,7 +37,7 @@
                     }
 
                 </ul>
-            </div>
+            </div>            
             @Html.Action("Recent", "Article")
             @Html.Action("Recent", "Comment")
         </div>

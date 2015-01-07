@@ -9,7 +9,15 @@
         {
             <li>
                 <p class="date">@item.Date.ToString("D")<span>@item.Date.ToString(" HH:mm")</span></p>
-                <p class="post"><a href="@item.URL">@item.Text</a></p>
+                <h2><p> @Html.ActionLink(@item.Text, "ComLink", "Home", new { titel = @item.CommentID }, null)</p></h2>
+                @if (@HttpContext.Current.User.Identity.Name == "Admin")
+                {
+                    <form action="@Url.Action("DelComment", "Home", new { id = @item.CommentID })" method="post">
+                        <div id="comment_form">
+                            <input type="submit" name="Submit" value=" Удалить " class="submit_btn" />
+                        </div>
+                    </form>
+                }
             </li>
         }
     </ul>

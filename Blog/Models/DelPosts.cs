@@ -15,25 +15,37 @@ namespace Blog.Models
             string postID = null;
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["mssql"].ConnectionString))
             {
-                using (var command = new SqlCommand(@"select  Title, Post.PostID, CommentID
-                                                                        from Comment
-                                                                        INNER JOIN Post ON Comment.PostID = Post.PostID
-                                                                           where Title = @title
-                                                                        order by CommentID desc"))
-                {
+                connection.Open();
+                using (var command = new SqlCommand(@"select Post.PostId
+from Comment
+INNER JOIN Post ON Comment.PostID = Post.PostId
+where Post.Title = @Title
+group by Post.PostId"))
+                     {
+
                     command.Connection = connection;
-                    command.Parameters.Add(new SqlParameter("title", title));
+                    command.Parameters.Add(new SqlParameter("Title", title));
                     using (var dataReader = command.ExecuteReader())
                     {
-                        while (dataReader.Read())
+                        if (dataReader.Read())
                         {
-                                  commentsID.Add( dataReader["CommentID"].ToString());
+                                
                                   postID = dataReader["PostID"].ToString();
                                   
                         }
                     }
+                    connection.Close();
                 }
-                using (var sqlCommand2 = new SqlCommand(@"delete from Post where PostId = @PostID"))
+                using (var sqlCommand = new SqlCommand(@"delete from Comment where PostID = @PostID"))
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("PostID", postID));
+                    sqlCommand.Connection = connection;
+                    connection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                    connection.Close();
+                }
+
+                using (var sqlCommand2 = new SqlCommand(@"delete from Post where PostID = @PostID"))
                 {
                     sqlCommand2.Parameters.Add(new SqlParameter("PostID", postID));
                     sqlCommand2.Connection = connection;

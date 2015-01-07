@@ -27,7 +27,7 @@ namespace Blog.Models
                         {
                             for (int i = 0; i < 3; i++)
                             {
-                                reader.Read();
+                               if( reader.Read())
                                 Items.Add(new RecentPostsItemModel(
                                     reader["Title"].ToString(),
                                     DateTime.Parse(reader["DateCreated"].ToString())

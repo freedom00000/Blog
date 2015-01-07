@@ -45,7 +45,8 @@ namespace Blog.Repository
                         {
                                   comments.Add( new CommentItemModel(
                                   dataReader["Body"].ToString(),
-                                  DateTime.Parse(dataReader["DateCreated"].ToString())
+                                  DateTime.Parse(dataReader["DateCreated"].ToString()),
+                                  dataReader["CommentID"].ToString()
                                   ));
                         }
                     }

@@ -50,16 +50,16 @@ namespace Blog.Controllers
         // [HttpPost]
         public ActionResult Index(AddCommentModel model)
         {
+            if(model.Comment != null )
+            {
             var readers = new DataBase();
             readers.AddComment(model.title, model.Comment, DateTime.Now.ToString());
             ModelState.Clear();
             this.title = model.title.ToString();
-            string ss = model.ToString();
-            return View(readers.GetArticleModel(title));
-
-
+            }
+            return RedirectToAction("Index", new { titel = this.title });
         }
-       
+
         public ActionResult AddPost(AddPostModel model)
         {
             if (model.title != null)
@@ -73,17 +73,62 @@ namespace Blog.Controllers
 
         public ActionResult Enter(string Name, string Password)
         {
-            if (Name == "admin" && Password == "admin")
+            if (Name == "admin" && Password == "kdzg48y5")
             {
                 FormsAuthentication.SetAuthCookie("Admin", false);
             }
             return View();
         }
-        [HttpGet]
-        public ActionResult DelPost(string Name, string Password)
+        //  [HttpGet]
+        public ActionResult DelPost(string Name)
         {
-            return View();
+            DelPosts obj = new DelPosts();
+            obj.DelPost(Name.Replace("_", " "));
+            return RedirectToAction("Index");
         }
 
+        public ActionResult DelComment(string id)
+        {
+            DelComments obj = new DelComments();
+            obj.DelPost(id);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ComLink(string titel)
+        {
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["mssql"].ConnectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand(@"select PostID from comment where CommentID = @id"))
+                {
+                    command.Connection = connection;
+                    command.Parameters.Add(new SqlParameter("id", titel));
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            title = reader["PostID"].ToString();
+
+                        }
+                    }
+                }
+                using (var command = new SqlCommand(@"select Title from Post where PostID = @id"))
+                {
+                    command.Connection = connection;
+                    command.Parameters.Add(new SqlParameter("id", title));
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            title = reader["Title"].ToString();
+
+                        }
+                    }
+                }
+            }
+            var readers = new DataBase();
+            return View(readers.GetArticleModel(title));
+
+        }
     }
 }
