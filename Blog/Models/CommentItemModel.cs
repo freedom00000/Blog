@@ -12,7 +12,6 @@ namespace Blog.Models
 
         public CommentItemModel( string body, DateTime dateCreated)
         {
-           
             this.body = body;
             this.dateCreated = dateCreated;
         }

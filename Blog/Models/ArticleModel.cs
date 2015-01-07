@@ -34,6 +34,5 @@ namespace Blog.Models
                 return comments;
             }
         }
-        public AddCommentModel NewComment { get; set; }
     }
 }

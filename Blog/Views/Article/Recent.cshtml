@@ -1,15 +1,17 @@
 ﻿@{
     Layout = null;
 }
-@model Blog.Models.RecentPostsModel
+@using Blog.Models
+@model RecentPostsModel
+ 
 <div class="posts-wrap">
-    <h3>Recent Posts</h3>
+    <h3>Последние статьи</h3>
     <ul>
         @foreach (var item in Model.Items)
         {
             <li>
                 <p class="date">@item.Date.ToString("D")</p>
-                <p class="post"><a href="@item.URL">@item.Text</a></p>
+                <h2><p> @Html.ActionLink(@item.Text, "Index", "Home", new { titel = @item.URL }, null)</p></h2>
             </li>
         }
     </ul>

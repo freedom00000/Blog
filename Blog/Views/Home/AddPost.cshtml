@@ -1,0 +1,13 @@
+﻿
+@model Blog.Models.AddPostModel
+<div class="add-comment">
+    <form action="@Url.Action("AddPost", "Home")" method="post">
+        <h1>Заголовок</h1>
+        @Html.TextAreaFor(m => m.title, new { placeholder = "Заголовок...", @class = "txt-title" })
+        <h1><p>Статья</p></h1>
+        @Html.TextAreaFor(m => m.body, new { placeholder = "Тело статьи...", @class = "txt-body" })
+        <div class="wrap-btn">
+            <button class="btn-save">Добавить</button>
+        </div>
+    </form>
+</div>

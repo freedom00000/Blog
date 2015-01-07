@@ -10,7 +10,7 @@ namespace Blog.Models
 {
     public class RecentPostsModel
     {
-        public RecentPostsModel()
+        public RecentPostsModel(int? it)
         {
             Items = new List<RecentPostsItemModel>();
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["mssql"].ConnectionString))
@@ -23,13 +23,27 @@ namespace Blog.Models
                     command.Connection = connection;
                     using (var reader = command.ExecuteReader())
                     {
-                        for (int i = 0; i < 3; i++)
+                        if (it !=1)
                         {
-                            reader.Read();
+                            for (int i = 0; i < 3; i++)
+                            {
+                                reader.Read();
                                 Items.Add(new RecentPostsItemModel(
                                     reader["Title"].ToString(),
                                     DateTime.Parse(reader["DateCreated"].ToString())
                                     ));
+                            }
+                        }
+                        else
+                        {
+                            while (reader.Read())
+                            {
+
+                                Items.Add(new RecentPostsItemModel(
+                                    reader["Title"].ToString(),
+                                    DateTime.Parse(reader["DateCreated"].ToString())
+                                    ));
+                            }
                         }
                     }
                 }

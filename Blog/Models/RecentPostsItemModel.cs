@@ -13,6 +13,7 @@ namespace Blog.Models
         {
             this.Text = title;
             this.Date = date;
+            this.URL = title.Replace(" ","_");
         }
         public string Text { get; set;}
         public string URL { get; set; }

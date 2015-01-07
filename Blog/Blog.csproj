@@ -133,20 +133,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AddCommentModel.cs" />
+    <Compile Include="Models\AddPostModel.cs" />
     <Compile Include="Models\ArticleModel.cs" />
     <Compile Include="Models\CommentItemModel.cs" />
-    <Compile Include="Models\HomeModel.cs" />
-    <Compile Include="Models\LikeModel.cs" />
-    <Compile Include="Models\LoyoutModel.cs" />
     <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\RecentCommentsItemModel.cs" />
     <Compile Include="Models\RecentCommentsModel.cs" />
     <Compile Include="Models\RecentPostsItemModel.cs" />
     <Compile Include="Models\RecentPostsModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\CommentsRepository.cs" />
-    <Compile Include="Repository\CountriesRepository.cs" />
     <Compile Include="Repository\DataBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -181,12 +176,6 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\RecentPosts.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\RecentComments.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Comment\Recent.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +183,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\AddComments.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\kotoblog - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\kotoblog - Web Deploy.pubxml" />
+    <Content Include="Views\Home\AddPost.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

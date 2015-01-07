@@ -61,11 +61,28 @@ namespace Blog.Repository
           using(var sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["mssql"].ConnectionString))
             {
                 using(var sqlCommand = new SqlCommand(@"INSERT INTO Comment
-	            SELECT PostID, @comment,"+ "'"+date+"'" + @"  AS MyPost 
+	            SELECT PostID, @comment, @date AS MyPost 
                 FROM Post 
                 WHERE Title = @title"))
                 {
                     sqlCommand.Parameters.Add(new SqlParameter("comment", comment));
+                    sqlCommand.Parameters.Add(new SqlParameter("date", date));
+                    sqlCommand.Parameters.Add(new SqlParameter("title", title));
+                    sqlCommand.Connection = sqlConnection;
+                    sqlConnection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void AddPost(string title, string body, string date)
+        {
+            using (var sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["mssql"].ConnectionString))
+            {
+                using (var sqlCommand = new SqlCommand("INSERT INTO Post VALUES(@title , @body , @date)"))
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("body", body));
+                    sqlCommand.Parameters.Add(new SqlParameter("date", date));
                     sqlCommand.Parameters.Add(new SqlParameter("title", title));
                     sqlCommand.Connection = sqlConnection;
                     sqlConnection.Open();

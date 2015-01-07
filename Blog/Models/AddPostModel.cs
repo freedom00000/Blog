@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Blog.Models
 {
-    public class LikeModel
+    public class AddPostModel
     {
-        public string Type { get; set; }
-        public int LikesCount { get; set; }
+        public string title { get; set; }
+        public string body { get; set; }
     }
 }

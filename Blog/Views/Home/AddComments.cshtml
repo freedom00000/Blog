@@ -3,11 +3,11 @@
 }
 @model Blog.Models.AddCommentModel
 <div class="add-comment">
-    <form action="@Url.Action("Index", "Home")" method="post" enctype="multipart/form-data">
-        @Html.TextAreaFor(m => m.Comment, new { placeholder = "Your comment", @class = "txt-area" })
+    <form action="@Url.Action("Index", "Home")" method="post" >
+        @Html.TextAreaFor(m => m.Comment, new { placeholder = "Комментировать...", @class = "txt-area",name="text" })
         <div class="wrap-btn">
-            <button class="btn-save">Send</button>
-            <p>Lorem ipsum dolor sit amet, <a href="#">adipiscing</a></p>
+            <button class="btn-save">Отправить</button>
         </div>
+        @Html.TextAreaFor(m => m.title, new { placeholder = "Your comment", @class = "txt-area", style = "visibility: hidden" })
     </form>
 </div>
