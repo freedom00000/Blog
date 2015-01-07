@@ -12,9 +12,7 @@ namespace Blog.Controllers
 {
     public class ArticleController : Controller
     {
-        //
-        // GET: /Article/
-      //  [HttpGet]
+
         public ActionResult Recent(int? i)
         {
 

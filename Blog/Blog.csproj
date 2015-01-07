@@ -136,6 +136,9 @@
     <Compile Include="Models\AddPostModel.cs" />
     <Compile Include="Models\ArticleModel.cs" />
     <Compile Include="Models\CommentItemModel.cs" />
+    <Compile Include="Models\DelPostModel.cs" />
+    <Compile Include="Models\DelPosts.cs" />
+    <Compile Include="Models\Enter.cs" />
     <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\RecentCommentsItemModel.cs" />
     <Compile Include="Models\RecentCommentsModel.cs" />
@@ -188,6 +191,8 @@
     <None Include="Properties\PublishProfiles\kotoblog - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\kotoblog - Web Deploy.pubxml" />
     <Content Include="Views\Home\AddPost.cshtml" />
+    <Content Include="Views\Home\Enter.cshtml" />
+    <Content Include="Views\Home\DelPost.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

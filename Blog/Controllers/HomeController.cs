@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Blog.Controllers
 {
@@ -69,5 +70,20 @@ namespace Blog.Controllers
             }
             return View();
         }
+
+        public ActionResult Enter(string Name, string Password)
+        {
+            if (Name == "admin" && Password == "admin")
+            {
+                FormsAuthentication.SetAuthCookie("Admin", false);
+            }
+            return View();
+        }
+        [HttpGet]
+        public ActionResult DelPost(string Name, string Password)
+        {
+            return View();
+        }
+
     }
 }
