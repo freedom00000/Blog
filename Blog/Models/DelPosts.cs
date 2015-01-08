@@ -17,10 +17,10 @@ namespace Blog.Models
             {
                 connection.Open();
                 using (var command = new SqlCommand(@"select Post.PostId
-from Comment
-INNER JOIN Post ON Comment.PostID = Post.PostId
-where Post.Title = @Title
-group by Post.PostId"))
+                                                    from Comment
+                                                    INNER JOIN Post ON Comment.PostID = Post.PostId
+                                                    where Post.Title = @Title
+                                                    group by Post.PostId"))
                      {
 
                     command.Connection = connection;
@@ -38,10 +38,30 @@ group by Post.PostId"))
                 }
                 using (var sqlCommand = new SqlCommand(@"delete from Comment where PostID = @PostID"))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("PostID", postID));
-                    sqlCommand.Connection = connection;
+                    if (postID != null)
+                    {
+                        sqlCommand.Parameters.Add(new SqlParameter("PostID", postID));
+                        sqlCommand.Connection = connection;
+                        connection.Open();
+                        sqlCommand.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+                using (var command2 = new SqlCommand(@"select PostID from Post where Title = @Title"))
+                {
+
+                    command2.Connection = connection;
                     connection.Open();
-                    sqlCommand.ExecuteNonQuery();
+                    command2.Parameters.Add(new SqlParameter("Title", title));
+                    using (var dataReader = command2.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+
+                            postID = dataReader["PostID"].ToString();
+
+                        }
+                    }
                     connection.Close();
                 }
 

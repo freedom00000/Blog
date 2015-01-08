@@ -67,13 +67,16 @@ namespace Blog.Controllers
                 var readers = new DataBase();
                 readers.AddPost(model.title, model.body, DateTime.Now.ToString());
                 ModelState.Clear();
+                return RedirectToAction("Index");
             }
-            return View();
+            else
+                return View();
+            
         }
 
         public ActionResult Enter(string Name, string Password)
         {
-            if (Name == "admin" && Password == "kdzg48y5")
+            if (Name == "admin" && Password == "adminforwin")
             {
                 FormsAuthentication.SetAuthCookie("Admin", false);
             }
@@ -90,8 +93,46 @@ namespace Blog.Controllers
         public ActionResult DelComment(string id)
         {
             DelComments obj = new DelComments();
+            
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["mssql"].ConnectionString))
+            {
+                using (var command2 = new SqlCommand(@"select PostID from Comment where CommentID =@id"))
+                {
+
+                    command2.Connection = connection;
+                    connection.Open();
+                    command2.Parameters.Add(new SqlParameter("id", id));
+                    using (var dataReader = command2.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+
+                            this.title = dataReader["PostID"].ToString();
+
+                        }
+                    }
+                    connection.Close();
+                }
+                using (var command2 = new SqlCommand(@"select Title from Post where PostID =@id"))
+                {
+
+                    command2.Connection = connection;
+                    connection.Open();
+                    command2.Parameters.Add(new SqlParameter("id", this.title));
+                    using (var dataReader = command2.ExecuteReader())
+                    {
+                        if (dataReader.Read())
+                        {
+
+                            this.title = dataReader["Title"].ToString();
+
+                        }
+                    }
+                    connection.Close();
+                }
+            }
             obj.DelPost(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { titel = this.title });
         }
 
         public ActionResult ComLink(string titel)

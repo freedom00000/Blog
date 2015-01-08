@@ -6,6 +6,7 @@
     <title>Блог Хорошего Человека</title>
     <link rel="stylesheet" href="~/Content/css/reset.css">
     <link rel="stylesheet" href="~/Content/css/style.css">
+
 </head>
 
 <body>
@@ -20,24 +21,44 @@
                     @if (@HttpContext.Current.User.Identity.Name == "Admin")
                     {
                         <li>@Html.ActionLink("Добавить статью", "AddPost", "Home")</li>
-                        <li>@Html.ActionLink("Удалить статью", "Recent", "Article")</li>
                         <li>@Html.ActionLink("Читать другие статьи", "Recent", "Article", new { i = 1 }, null)</li>
 
-                        /* <li><a id="readMoreLink" href="#">Читать другие статьи</a></li>
+    @*     <li><a id="readMoreLink" href="#">Читать другие статьи</a></li>
     <li id="recentDiv" hidden="hidden">
         <div>
             @Html.Partial("../Article/Recent", new RecentPostsModel(1), null)
         </div>
-    </li>*/
+    </li> *@
+
                     }
                     else
                     {
                         <li>@Html.ActionLink("Войти", "Enter", "Home")</li>
                         <li>@Html.ActionLink("Читать другие статьи", "Recent", "Article", new { i = 1 }, null)</li>
+
+    @*     <li><a id="readMoreLink" href="#">Читать другие статьи</a></li>
+    <li id="recentDiv" hidden="hidden">
+        <div>
+            @Html.Partial("../Article/Recent", new RecentPostsModel(1), null)
+        </div>
+    </li> *@
                     }
 
                 </ul>
-            </div>            
+            </div>
+
+        @*    <script type="text/javascript">
+                $("#readMoreLink").click(function () {
+                    var isHidden = $(recentDiv).getAttribute("hidden").val();
+                    if(isHidden == "hidden"){
+                        $(recentDiv).removeAttr("hidden");
+                    } else
+                {
+                $(recentDiv).addAttr("hidden");
+                }
+                });
+            </script>    *@
+
             @Html.Action("Recent", "Article")
             @Html.Action("Recent", "Comment")
         </div>
